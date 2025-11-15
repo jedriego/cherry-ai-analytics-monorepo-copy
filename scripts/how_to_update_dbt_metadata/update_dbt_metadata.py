@@ -27,13 +27,13 @@ if not all([DBT_CLOUD_API_KEY, DBT_CLOUD_ACCOUNT_ID, DBT_CLOUD_JOB_ID]):
     print("ERROR: DBT Cloud API Key, Account ID, or Job ID not set in environment variables. Exiting.")
     sys.exit(1)
 
-# --- Cache Configuration ---
+# --- Output Configuration ---
 # Determine script directory and project root
 SCRIPT_DIR = Path(__file__).parent
-PROJECT_ROOT = SCRIPT_DIR.parent # Navigate up one level: src -> project root
-DATA_DIR = PROJECT_ROOT / "data"
-CACHE_FILE_PATH = DATA_DIR / "dbt_api_cache.pkl"
-MARKDOWN_OUTPUT_PATH = DATA_DIR / "dbt_cloud_metadata_output.md" # Define MD output path
+PROJECT_ROOT = SCRIPT_DIR.parent.parent # Navigate up two levels: script -> how_to_update_dbt_metadata -> scripts -> project root
+# Output directly to context folder (no data/ directory needed)
+OUTPUT_DIR = PROJECT_ROOT / "context"
+MARKDOWN_OUTPUT_PATH = OUTPUT_DIR / "dbt_metadata.md" # Define MD output path
 
 # --- Function: Format Models to Markdown ---
 def format_metadata_to_markdown(models_metadata: List[Dict[str, Any]]) -> str:
@@ -183,49 +183,26 @@ def get_all_metadata_from_job_run(job_id: str) -> Union[List[Dict[str, Any]], No
 # --- Main Execution Logic ---
 def run_discovery_model_query():
     """
-    Attempts to query model metadata using the Discovery API, utilizing a cache.
-    Raises AssertionError if the query fails and cache is empty.
+    Queries model metadata from the Discovery API.
+    Raises AssertionError if the query fails.
     Returns the models metadata list.
     """
     print(f"\nRunning Discovery API model query for Job ID: {DBT_CLOUD_JOB_ID}...")
 
-    # Ensure data directory exists
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    # Ensure output directory exists
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    # --- Cache Check ---
-    models_metadata = None
-    if CACHE_FILE_PATH.exists():
-        print(f"Attempting to load metadata from cache: {CACHE_FILE_PATH}")
-        try:
-            with open(CACHE_FILE_PATH, "rb") as f:
-                models_metadata = pickle.load(f)
-            print("Successfully loaded metadata from cache.")
-        except (pickle.UnpicklingError, EOFError, FileNotFoundError, Exception) as e:
-            print(f"Failed to load from cache or cache invalid: {e}. Fetching fresh data.")
-            models_metadata = None # Ensure we fetch fresh if cache load fails
+    # --- Fetch from API (no caching) ---
+    print("Fetching fresh data from Discovery API...")
+    models_metadata = get_all_metadata_from_job_run(DBT_CLOUD_JOB_ID)
 
-    # --- Fetch from API if Cache Miss/Invalid ---
     if models_metadata is None:
-        print("Cache empty or invalid, fetching fresh data from Discovery API...")
-        models_metadata = get_all_metadata_from_job_run(DBT_CLOUD_JOB_ID)
-
-        if models_metadata is None:
-            # If API fetch also fails, raise error.
-            raise AssertionError("Failed to fetch model metadata from Discovery API and cache is empty/invalid.")
-
-        # --- Save to Cache ---
-        try:
-            print(f"Saving freshly fetched metadata to cache: {CACHE_FILE_PATH}")
-            with open(CACHE_FILE_PATH, "wb") as f:
-                pickle.dump(models_metadata, f)
-            print("Successfully saved metadata to cache.")
-        except (pickle.PicklingError, IOError, Exception) as e:
-            print(f"Warning: Failed to save metadata to cache: {e}")
-            # Continue execution even if caching fails, but warn the user.
+        # If API fetch fails, raise error.
+        raise AssertionError("Failed to fetch model metadata from Discovery API.")
 
     # --- Process and Print ---
     if not models_metadata:
-        print("Warning: Query/Cache successful, but no models were found for this job.")
+        print("Warning: Query successful, but no models were found for this job.")
     else:
         # Limit printing for brevity if many models are returned
         print_limit = 5

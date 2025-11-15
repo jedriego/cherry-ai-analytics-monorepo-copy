@@ -17,10 +17,10 @@ from typing import Dict, List, Any
 
 # Configuration
 SCRIPT_DIR = Path(__file__).parent
-PROJECT_ROOT = SCRIPT_DIR.parent
-DATA_DIR = PROJECT_ROOT / "data"
-MARKDOWN_INPUT_PATH = DATA_DIR / "dbt_cloud_metadata_output.md"
-OUTPUT_DIR = PROJECT_ROOT / "context" / "strategy_analytics"
+PROJECT_ROOT = SCRIPT_DIR.parent.parent # Navigate up two levels: script -> how_to_update_dbt_metadata -> scripts -> project root
+CONTEXT_DIR = PROJECT_ROOT / "context"
+MARKDOWN_INPUT_PATH = CONTEXT_DIR / "dbt_metadata.md"
+OUTPUT_DIR = CONTEXT_DIR / "strategy_and_analytics" / "dbt"
 
 
 def parse_dbt_markdown(file_path: Path) -> List[Dict[str, Any]]:

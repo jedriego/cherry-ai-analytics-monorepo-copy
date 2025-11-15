@@ -2,51 +2,143 @@
 
 **What problem are you working on?**
 
-This is the navigation hub for AI agents and analysts to find relevant data context, business logic, and tribal knowledge.
+This is a living knowledge base that gives AI agents complete context about your data stack, business logic, and tribal knowledge.
 
-## 🗺️ Browse by Domain
+## 🗂️ Navigate by Domain
 
-### [Strategy Analytics](strategy_analytics/)
-- **Production dbt models** (224 models across 15 schemas)
-- Revenue, risk, servicing, marketing, and support analytics
-- Auto-generated from dbt Cloud Discovery API
-- **Start here** for most analytics questions
+Choose the domain that matches your problem:
 
-## 🎯 How AI Agents Use This
+### [Strategy & Analytics](strategy_and_analytics/)
+Auto-generated dbt model documentation + business logic
+- **224 production models** from Snowflake
+- Revenue, risk, marketing, customer support marts
+- [Browse dbt models →](strategy_and_analytics/dbt/)
 
-1. **AI reads this README** → "What domain does this problem relate to?"
-2. **Navigates to domain folder** → e.g., `strategy_analytics/`
-3. **Reads domain README** → Finds relevant schemas (revenue_marts, risk_marts, etc.)
-4. **Reads schema README** → Gets list of models grouped by tags
-5. **Reads specific model.md** → Full schema, columns, dependencies, descriptions
+### [Credit Risk](credit_risk/)
+Credit risk assessment, underwriting, portfolio management
+- Application risk scoring logic
+- Underwriting decision rules
+- Portfolio performance analysis
+- *Team-maintained documentation*
 
-**No vector search. No RAG. Just hierarchical file navigation.**
+### [Practice Intelligence](practice_intelligence/)
+Healthcare practice operations and provider analytics
+- Provider scheduling logic
+- Practice performance metrics
+- Patient flow optimization
+- *Team-maintained documentation*
 
-## 📚 How Humans Use This
-
-1. **Browse on GitHub** → Click through folders to explore data models
-2. **Search by keyword** → Use GitHub search for tags, column names, descriptions
-3. **Contribute knowledge** → Add `gotchas.md`, `patterns.md` alongside models via PR
-
-## ✍️ Contributing Business Logic
-
-Found a data quirk? Document it next to the relevant schema:
-
-```bash
-# Example: Adding gotchas for revenue models
-cd strategy_analytics/prod/revenue_marts/
-nano gotchas.md  # Document edge cases, null handling, date ranges, etc.
-git commit -m "Add revenue gotchas for Q4 reporting"
-```
-
-Once merged, AI agents have permanent context about your tribal knowledge.
-
-## 🔄 How This Stays Fresh
-
-- **dbt models**: Auto-updated weekly from dbt Cloud Discovery API
-- **Business logic**: Teams contribute via PR
-- **Automation**: `scripts/generate_context_folders.py` regenerates structure
+### [RevOps](revops/)
+Revenue operations and sales analytics
+- Revenue recognition rules
+- Sales pipeline definitions
+- Customer lifecycle metrics
+- *Team-maintained documentation*
 
 ---
 
-*Navigate to a domain to get started →*
+## 💡 How to Use This Library
+
+### For AI Agents
+1. Start here: "What problem are you working on?"
+2. Navigate to the relevant domain folder
+3. Read the domain README for context pointers
+4. Access specific documentation files
+
+### For Analysts
+- **Browse:** Navigate folders to find existing knowledge
+- **Validate:** Check AI output against documented rules
+- **Contribute:** Add your tribal knowledge via PR
+
+### For Teams
+- **Own your folder:** Maintain documentation for your domain
+- **Document once:** AI uses your rules forever
+- **Validate AI:** Against standards YOU wrote
+
+---
+
+## 📝 Contributing Knowledge
+
+**To add to this library:**
+
+1. Navigate to your team's domain folder
+2. Create a markdown file documenting:
+   - Business logic
+   - Gotchas and edge cases
+   - Common query patterns
+   - Calculation methodologies
+   - Data quality issues
+3. Open a PR with your additions
+4. Once merged, AI agents have permanent context
+
+### Example Contribution
+
+**File:** `credit_risk/gotchas.md`
+
+```markdown
+## Application Status Field
+
+- **Pre-2023:** `status` can be NULL (legacy data issue)
+- **Post-2023:** `status` always populated
+- **For queries:** Use `COALESCE(status, 'UNKNOWN')` for pre-2023 data
+```
+
+AI now knows this forever. Every query follows this rule.
+
+---
+
+## 🏗️ Repository Structure
+
+```
+context/
+├── README.md (you are here - "What problem are you working on?")
+│
+├── strategy_and_analytics/
+│   └── dbt/                    Auto-synced from dbt Cloud
+│       └── prod/               224 production models
+│
+├── credit_risk/                Team-maintained
+│   └── README.md
+│
+├── practice_intelligence/      Team-maintained
+│   └── README.md
+│
+└── revops/                     Team-maintained
+    └── README.md
+```
+
+---
+
+## 🎯 Why This Works
+
+### For AI
+- Complete context about data, business logic, gotchas
+- Navigates via hierarchical READMEs
+- No hallucinations about your data
+- Accuracy improves as library grows
+
+### For Teams
+- Own their domain knowledge
+- Validate AI against their own rules
+- Contribute once, AI uses forever
+- Knowledge preserved when people leave
+
+### For New Hires
+- Library = onboarding documentation
+- AI + library = productive from week 1
+- Learn institutional knowledge immediately
+
+---
+
+## 📊 Auto-Generated vs Manual
+
+| Folder | Type | Update Method |
+|--------|------|---------------|
+| `strategy_and_analytics/dbt/` | Auto-generated | dbt Discovery API sync |
+| `credit_risk/` | Manual | Team PRs |
+| `practice_intelligence/` | Manual | Team PRs |
+| `revops/` | Manual | Team PRs |
+
+---
+
+**Built with:** MCP (Model Context Protocol) | dbt Discovery API | GitHub
