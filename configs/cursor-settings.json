@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "mcpServers": {
+    "snowflake": {
+      "command": "uvx",
+      "args": [
+        "snowflake-labs-mcp",
+        "--service-config-file",
+        "~/.cursor/snowflake_mcp_config.yaml"
+      ],
+      "env": {
+        "SNOWFLAKE_ACCOUNT": "your-account-id",
+        "SNOWFLAKE_USER": "your-username",
+        "SNOWFLAKE_PRIVATE_KEY_FILE": "~/.ssh/rsa_key.p8",
+        "SNOWFLAKE_PRIVATE_KEY_FILE_PWD": "your-passphrase",
+        "SNOWFLAKE_ROLE": "TRANSFORMER",
+        "SNOWFLAKE_WAREHOUSE": "TRANSFORMATION_WAREHOUSE"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_GITHUB_PAT_HERE"
+      }
+    }
+  },
+  "mcpServersAllowedToolsWithoutPermission": [
+    "mcp__snowflake__run_snowflake_query",
+    "mcp__snowflake__list_semantic_views",
+    "mcp__snowflake__describe_semantic_view",
+    "mcp__snowflake__show_semantic_dimensions",
+    "mcp__snowflake__show_semantic_metrics",
+    "mcp__snowflake__get_semantic_view_ddl",
+    "mcp__snowflake__write_semantic_view_query_tool",
+    "mcp__snowflake__query_semantic_view"
+  ]
+}

@@ -1,0 +1,22 @@
+[mcp_servers.snowflake]
+command = "uvx"
+args = [
+    "snowflake-labs-mcp",
+    "--service-config-file",
+    "~/.codex/snowflake_mcp_config.yaml"
+]
+
+[mcp_servers.snowflake.env]
+SNOWFLAKE_ACCOUNT = "your-account-id"
+SNOWFLAKE_USER = "your-username"
+SNOWFLAKE_PRIVATE_KEY_FILE = "~/.ssh/rsa_key.p8"
+SNOWFLAKE_PRIVATE_KEY_FILE_PWD = "your-passphrase"
+SNOWFLAKE_ROLE = "TRANSFORMER"
+SNOWFLAKE_WAREHOUSE = "TRANSFORMATION_WAREHOUSE"
+
+[mcp_servers.github]
+type = "http"
+url = "https://api.githubcopilot.com/mcp/"
+
+[mcp_servers.github.headers]
+Authorization = "Bearer YOUR_GITHUB_PAT_HERE"
