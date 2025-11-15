@@ -22,9 +22,10 @@ This is an MVP demonstrating:
 **First, load the repository context in your AI tool:**
 
 ```
-  Open the repository `jedriego/cherry-ai-analytics-monorepo-copy` (default
-  branch `master`) via the GitHub MCP server and load `README.md`. Skip any
-  resource-list queries and go straight to the file API on `master`.
+  Load the README.md file from the GitHub repository
+  `jedriego/cherry-ai-analytics-monorepo-copy` (branch: `master`) using the
+  GitHub MCP server's get_file_contents tool with ref parameter set to
+  `refs/heads/master`.
 ```
 
 This gives the AI agent access to all context files and documentation.
