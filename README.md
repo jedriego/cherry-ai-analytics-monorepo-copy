@@ -4,9 +4,7 @@
 
 ## 🎯 The Vision
 
-Deploy AI playbooks achieving **75% adoption** across technical teams (Analytics, Risk, RevOps) in 3 months.
-
-**Target:** 18/24 people actively using AI workflows
+Deploy AI playbooks achieving **75% adoption** across technical teams (Analytics, Risk, RevOps) in Q4 2025.
 
 ## 🏗️ What This Is
 
