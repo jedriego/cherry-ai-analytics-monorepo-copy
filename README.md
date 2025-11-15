@@ -2,174 +2,238 @@
 
 **Living knowledge base + AI agent configuration for analytics teams**
 
-## 🎯 The Vision
+## 🎯 What This Is
 
-Deploy AI playbooks achieving **75% adoption** across technical teams (Analytics, Risk, RevOps) in Q4 2025.
+A **world-wide map of our analytics infrastructure** - giving AI agents complete context about your data stack.
 
-## 🏗️ What This Is
+This is an MVP demonstrating:
+1. **Auto-generated documentation** - 224 dbt production models synchronized from dbt Cloud
+2. **Problem-based navigation** - Hierarchical folder structure organized by domain
+3. **Team-owned knowledge** - Each team maintains their own context folder
 
-A GitHub monorepo that gives AI agents complete context about your data stack, business logic, and tribal knowledge. Not just an AI tool—**a living knowledge base** that:
-
-1. Captures institutional knowledge across teams
-2. Makes AI agents accurate through hierarchical context
-3. Enables validation against team-documented standards
-4. Scales expertise across all analysts
-5. Compounds value over time
-
-**No RAG. No vectors. Just hierarchical file navigation via READMEs.**
-
-## 📁 Repository Structure
-
-```
-cherry-ai-analytics-monorepo/
-├── README.md (you are here)
-├── VISION.md (detailed implementation plan)
-│
-├── configs/ (Pre-configured AI tool setups)
-│   ├── README.md (setup instructions)
-│   ├── claude-code-settings.json
-│   ├── cursor-settings.json
-│   ├── codex-settings.toml
-│   └── snowflake_mcp_config.yaml
-│
-└── context/ (coming soon - the knowledge library)
-    ├── README.md ("What problem are you working on?")
-    ├── credit_risk/
-    ├── practice_intelligence/
-    ├── strategy_analytics/ (auto-generated from 1,200 dbt models)
-    └── revops/
-```
-
-## 🚀 Quick Start
-
-### For Analysts (10 minutes)
-
-1. **Install AI tool:**
-   - [Claude Code](https://code.claude.com) (CLI workflows)
-   - [Cursor](https://cursor.sh) (IDE workflows)
-   - Codex (enterprise)
-
-2. **Configure Snowflake + GitHub access:**
-   ```bash
-   cd configs
-   # Follow README.md setup instructions
-   ```
-
-3. **Start using:**
-   ```
-   "Show me top 10 customers by revenue"
-   "Query the semantic view for Q4 metrics"
-   "Search our dbt models for churn logic"
-   ```
-
-## 🧠 The Core Insight
-
-**Teams maintain their GitHub section = Teams validate AI output against THEIR OWN documentation**
-
-### Validation Flow
-
-1. AI reads team's documented rules (e.g., `credit_risk/gotchas.md`)
-2. AI generates code following those rules
-3. Analyst validates output against the rules THEY wrote
-4. If AI missed something → PR new rule → AI learns it forever
-
-**The library becomes the validation checklist.**
-
-Not "trust the AI" but "validate against YOUR documentation."
-
-## 📊 Current Progress
-
-### ✅ Phase 1: Configuration (COMPLETE)
-
-- [x] Pre-configured MCP setups for Snowflake queries
-- [x] GitHub MCP for repository access
-- [x] RSA key authentication templates
-- [x] Auto-approval settings for smooth workflow
-- [x] Multi-tool support (Claude Code, Cursor, Codex)
-
-### 🚧 Phase 2: Knowledge Library (IN PROGRESS)
-
-- [ ] Create `context/` folder structure
-- [ ] Build dbt Discovery API → GitHub automation
-- [ ] Generate `strategy_analytics/` from 1,200 models
-- [ ] Write domain READMEs with navigation patterns
-- [ ] Document initial gotchas and business logic
-
-### 📅 Phase 3: Team Rollout (PLANNED)
-
-- [ ] Deploy to Strategy Analytics team
-- [ ] Measure velocity and accuracy improvements
-- [ ] Recruit champions from Risk and RevOps
-- [ ] Scale to 75% adoption
-
-## 🛠️ Technical Stack
-
-| Component | Technology |
-|-----------|------------|
-| **AI Agent** | Codex (enterprise) / Claude Code |
-| **Configuration** | Pre-configured MCP with Snowflake + GitHub |
-| **Context Library** | GitHub monorepo with semantic layer |
-| **Automation** | dbt Discovery API → GitHub sync |
-| **Access Pattern** | Problem-based hierarchical navigation |
-
-## 🎓 For New Contributors
-
-### Adding to the Knowledge Library
-
-1. Navigate to your team's folder (e.g., `context/credit_risk/`)
-2. Document business logic, gotchas, query patterns
-3. Open PR with your additions
-4. Once merged, AI has permanent context
-
-### Example Contribution
-
-**File:** `context/credit_risk/gotchas.md`
-
-```markdown
-## Application Status Field
-
-- **Pre-2023:** `status` can be NULL (legacy data issue)
-- **Post-2023:** `status` always populated
-- **For queries:** Use `COALESCE(status, 'UNKNOWN')` for pre-2023 data
-```
-
-AI now knows this forever. Every query generated follows this rule.
-
-## 📈 Success Metrics
-
-**Weekly tracking:**
-- Active users (who used it this week)
-- Library contributions (PRs merged)
-- Success stories (shipped faster/better)
-- Velocity metrics (before/after AI adoption)
-
-**3-month goal:** 18/24 people actively using AI workflows
-
-## 🔗 Key Resources
-
-- **Full Vision:** See [VISION.md](VISION.md) for complete implementation plan
-- **Setup Guide:** See [configs/README.md](configs/README.md) for installation
-- **Support:** #ai-analytics Slack channel
-
-## 💡 Why This Works
-
-### For AI
-- Complete context about data, business logic, gotchas
-- Navigates via hierarchical READMEs
-- No hallucinations about your data
-- Accuracy improves as library grows
-
-### For Teams
-- Own their domain knowledge
-- Validate AI against their own rules
-- Contribute once, AI uses forever
-- Knowledge preserved when people leave
-
-### For New Hires
-- Library = onboarding documentation
-- AI + library = productive from week 1
-- Learn institutional knowledge immediately
+**No RAG. No vectors. Just hierarchical file navigation.**
 
 ---
 
-**Built with:** MCP (Model Context Protocol) | Snowflake Labs MCP | GitHub Copilot MCP | dbt Discovery API
+## 🚀 Quick Start
+
+### Initialize AI Access
+
+**First, load the repository context in your AI tool:**
+
+```
+Open jedriego/cherry-ai-analytics-monorepo-copy using the github mcp server please
+```
+
+This gives the AI agent access to all context files and documentation.
+
+### What's Working Now (MVP)
+
+**Browse the knowledge base:**
+1. Open `context/README.md` - Start with "What problem are you working on?"
+2. Navigate to `context/strategy_and_analytics/dbt/prod/`
+3. Explore 224 documented models across 15 schemas
+4. Each model has full schema, columns, descriptions, lineage
+
+**Regenerate documentation:**
+```bash
+rm -rf context/strategy_and_analytics
+python scripts/how_to_update_dbt_metadata/update_dbt_metadata.py
+python scripts/how_to_update_dbt_metadata/generate_context_folders.py
+```
+
+### What's Next (Full AI Integration)
+
+**For AI-powered queries, you'll need:**
+1. MCP configuration (Snowflake + GitHub access)
+2. AI tool setup (Claude Code, Cursor, or Codex)
+3. Polished context READMEs (currently MVP quality)
+
+See `configs/` folder for MCP setup templates.
+
+**The vision:** AI reads this context → generates accurate queries → you validate against documented rules
+
+---
+
+## 📁 What's Inside
+
+```
+cherry-ai-analytics-monorepo/
+├── context/                    The knowledge library
+│   ├── README.md              "What problem are you working on?"
+│   │
+│   ├── strategy_and_analytics/
+│   │   └── dbt/               ✅ 224 auto-generated production models
+│   │       └── prod/          Revenue, risk, marketing, support marts
+│   │
+│   ├── credit_risk/           Team-maintained (placeholder)
+│   ├── practice_intelligence/ Team-maintained (placeholder)
+│   └── revops/                Team-maintained (placeholder)
+│
+├── scripts/                    Repository automation
+│   └── how_to_update_dbt_metadata/
+│       ├── update_dbt_metadata.py      Fetch from dbt Cloud API
+│       └── generate_context_folders.py  Build folder structure
+│
+└── configs/                    Pre-configured MCP setups
+    └── (Snowflake + GitHub access)
+```
+
+---
+
+## 🎬 The Demo
+
+### What We Built
+
+**Automated dbt → GitHub sync**
+- Fetches all 1,265 models from dbt Cloud Discovery API
+- Filters to 224 production models
+- Generates hierarchical folder structure
+- Each model gets full documentation (schema, columns, lineage, descriptions)
+- Updates on-demand with one command
+
+**Problem-based navigation structure**
+- Root: "What problem are you working on?"
+- Domains: strategy_and_analytics, credit_risk, practice_intelligence, revops
+- Each domain has README guiding to relevant models
+
+**The world-wide map:**
+- `context/strategy_and_analytics/dbt/prod/` = Complete map of production data warehouse
+- 15 schemas (revenue_marts, risk_marts, core_marts, etc.)
+- 224 fully documented models
+- AI agents can navigate this without hallucinating
+
+---
+
+## 🔄 How to Update
+
+Regenerate the dbt documentation:
+
+```bash
+# Delete old structure
+rm -rf context/strategy_and_analytics
+
+# Fetch fresh metadata from dbt Cloud
+python scripts/how_to_update_dbt_metadata/update_dbt_metadata.py
+
+# Generate folder structure
+python scripts/how_to_update_dbt_metadata/generate_context_folders.py
+```
+
+**Result:** Fresh documentation in `context/strategy_and_analytics/dbt/prod/`
+
+---
+
+## 💡 Why This Matters
+
+### The Problem
+- AI agents hallucinate about your data
+- No context about business logic, gotchas, or data structure
+- Teams don't trust AI output
+
+### This Solution
+- **Complete map** of your data warehouse (224 models)
+- **Hierarchical navigation** - AI knows where to look
+- **Auto-updated** - Always current with production
+- **Team-owned** - Each domain maintains their knowledge
+
+### The Validation Model
+1. AI reads documented rules (from this repo)
+2. AI generates code following those rules
+3. Analyst validates against rules THEY (or their team) wrote
+4. Trust = validating against YOUR documentation, not blind faith
+
+---
+
+## 📊 Current State
+
+### ✅ What's Complete
+
+**Phase 1: Auto-Generated Base**
+- [x] dbt Cloud Discovery API integration
+- [x] 224 production models documented
+- [x] Hierarchical folder structure
+- [x] Problem-based navigation READMEs
+- [x] One-command regeneration workflow
+
+### 🚧 What's Next
+
+**Phase 2: Team Knowledge (Manual)**
+- [ ] Teams add gotchas.md, business_logic.md to their folders
+- [ ] Document edge cases, calculation methods, data quirks
+- [ ] Build the tribal knowledge layer
+
+**Phase 3: AI-Assisted Documentation**
+- [ ] Capture Slack conversations automatically
+- [ ] AI generates documentation from tribal knowledge
+- [ ] 30-second human review → merge
+- [ ] Make documentation a byproduct, not extra work
+
+---
+
+## 📝 How to Contribute Knowledge
+
+### The Reality: Documentation is Hard
+
+Let's be honest - asking people to write documentation rarely works. Everyone's too busy.
+
+**The solution:** Make it a byproduct of existing work.
+
+### Two Ways to Add Knowledge
+
+#### 1. Auto-Generated (Zero Effort) ✅
+- **dbt models** already handled
+- Auto-syncs weekly from dbt Cloud
+- You don't do anything
+
+#### 2. AI-Assisted (30 seconds)
+Capture tribal knowledge from Slack:
+
+**The Flow:**
+1. Expert explains something in Slack (normal work)
+2. AI captures → generates documentation
+3. You review (30 sec) → approve
+4. Knowledge preserved forever
+
+**Example:**
+
+*Slack:* "Revenue is NULL for Q1 2023 because of billing migration. Use legacy_revenue table."
+
+*AI generates PR:* Proper markdown with issue, cause, solution
+
+*You:* "Looks good" → Merge
+
+See [THOUGHTS.md](THOUGHTS.md) for why this scales.
+
+### Traditional Way (Optional)
+
+Power users can still PR directly:
+1. Go to your team's folder (e.g., `context/credit_risk/`)
+2. Create `gotchas.md` or `business_logic.md`
+3. Document edge cases, calculations, quirks
+4. Open PR → merge
+
+---
+
+## 🔗 Additional Documentation
+
+- **[VISION.md](personal_thoughts/VISION.md)** - Task-based roadmap (5 phases to 75% adoption)
+- **[THOUGHTS.md](personal_thoughts/THOUGHTS.md)** - Why AI-assisted documentation is the scalability unlock
+- **[context/README.md](context/README.md)** - Entry point for problem-based navigation
+
+---
+
+## 🎯 The Vision (3 Months)
+
+**Goal:** 18/24 people (75%) actively using AI workflows
+
+**How:**
+1. **Week 1-2:** Build MVP ✅ (YOU ARE HERE)
+2. **Week 3-4:** Prove with your team
+3. **Week 4+:** Champions multiply to other teams
+
+**Success = Making this the single source of truth for analytics context**
+
+---
+
+**Built with:** MCP (Model Context Protocol) | dbt Discovery API | GitHub

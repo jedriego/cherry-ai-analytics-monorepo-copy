@@ -1,0 +1,5 @@
+.env
+
+# Generated dbt metadata (regenerated from API)
+data/
+context/dbt_metadata.md
