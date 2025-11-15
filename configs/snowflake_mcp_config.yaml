@@ -1,0 +1,17 @@
+# Snowflake MCP Configuration
+# Official Snowflake Labs MCP Server
+
+agent_services: []
+search_services: []
+analyst_services: []
+
+other_services:
+  object_manager: false
+  query_manager: true
+  semantic_manager: true
+
+sql_statement_permissions:
+  - Select: true
+  - Use: true
+  - Show: true
+  - Describe: true
